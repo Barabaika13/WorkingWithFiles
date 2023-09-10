@@ -2,6 +2,7 @@
 {
     internal class Program
     {
+        private const int numberOfFiles = 500;
         static void Main(string[] args)
         {
             var path1 = @"C:\Otus\TestDir1";
@@ -10,27 +11,28 @@
 
             var path2 = @"C:\Otus\TestDir2";
             DirectoryInfo dirInfo2 = new DirectoryInfo(path2);
-            dirInfo2.Create();
+            dirInfo2.Create();           
 
-            string[] fileNames = new string[]
-            {
-                "file1.txt",
-                "file2.txt",
-                "file3.txt",
-                "file4.txt",
-                "file5.txt",
-                "file6.txt",
-                "file7.txt",
-                "file8.txt",
-                "file9.txt",
-                "file10.txt",
-            };
-
+            string[] fileNames = GenerateFileNames(numberOfFiles);
             CreateAndWriteFiles(path1, fileNames);
             CreateAndWriteFiles(path2, fileNames);
             ReadFiles(path1, fileNames);
             Console.WriteLine();
             ReadFiles(path2, fileNames);
+        }     
+
+        public static string[] GenerateFileNames(int numberOfFiles)
+        {
+            int numberOfDigits = numberOfFiles.ToString().Length;            
+            string[] fileNames = new string[numberOfFiles];
+            for (int i = 0; i < numberOfFiles; i++)
+            {
+                int value = i + 1;
+                int numberLength = numberOfDigits;
+                string valueWithZeroes = value.ToString("D" + numberLength.ToString());                
+                fileNames[i] = $"file{valueWithZeroes}.txt";
+            }
+            return fileNames;
         }
 
         public static void CreateAndWriteFiles(string path, string[] fileNames)
