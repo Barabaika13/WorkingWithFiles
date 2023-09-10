@@ -27,9 +27,8 @@
             string[] fileNames = new string[numberOfFiles];
             for (int i = 0; i < numberOfFiles; i++)
             {
-                int value = i + 1;
-                int numberLength = numberOfDigits;
-                string valueWithZeroes = value.ToString("D" + numberLength.ToString());                
+                int value = i + 1;               
+                string valueWithZeroes = value.ToString("D" + numberOfDigits.ToString());                
                 fileNames[i] = $"file{valueWithZeroes}.txt";
             }
             return fileNames;
